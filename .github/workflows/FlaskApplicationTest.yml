@@ -33,7 +33,7 @@ jobs:
 
     - name: Run Flask Application
       run: |
-        flask run &
+        python3 app.py &
         sleep 60 # Wait for the server to start
 
     - name: Test Flask Application
