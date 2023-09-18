@@ -1,0 +1,41 @@
+name: Flask Application Test with Poetry
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+
+    - name: Install dependencies with Poetry
+      run: |
+        poetry install
+
+    - name: Install pip dependencies
+      run: |
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run Flask Application
+      run: |
+        flask run &
+        sleep 60 # Wait for the server to start
+
+    - name: Test Flask Application
+      run: |
+        curl localhost:5000
