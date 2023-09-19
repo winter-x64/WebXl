@@ -38,4 +38,4 @@ jobs:
 
     - name: Test Flask Application
       run: |
-        curl localhost:5000
+        curl localhost:8080
